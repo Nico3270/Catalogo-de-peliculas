@@ -44,7 +44,6 @@ db.create_all()
 def home():
     #This line creates a list of all the movies sorted by rating
     all_movies = Movie.query.order_by(Movie.rating).all()
-    
     #This line loops through all the movies
     for i in range(len(all_movies)):
         #This line gives each movie a new ranking reversed from their order in all_movies

@@ -12,7 +12,13 @@
 
 {% block content %}
 <div class="content">
-  <h1 class="heading">Movie Title</h1>
-    <p class="description">Edit Movie Rating</p>
+  <h1 class="heading">{{update.title}}</h1>
+  <h2 class="heading">Actual rating : {{update.rating}}</h2>
+  <div class="container-md">
+    <h3 class="description">Realizar cambios
+      {{wtf.quick_form(form,novalidate=True)}}
+      <p><a class="btn btn success" href="{{url_for('home')}}">Agregar </a></p>
+    </h3>
+  </div>
   </div>
 {% endblock %}

@@ -14,7 +14,7 @@
 <body>
 <div class="container text-center ">
   <h1 class="heading">My Top 10 Movies</h1>
-  <p class="description">These are my all time favourite movies.</p>
+  <h3 class="description">These are my all time favourite movies.</h3>
   <div class="row">
     {% for movie in movies %}
     <div class="card col-6" style="max-width: 1040px;">
@@ -27,11 +27,9 @@
           <div class="card-body">
             <h5 class="card-title">{{movie.title }} ({{movie.year}})</h5>
             <p class="card-text">{{movie.description}}</p>
-            <h5 class="card-title">My favourite character was ({{movie.review}})</h5>
-            <p class="card-text"><small class="text-muted">Puntuación {{movie.rating}}</small></p>
-            <a href="#" class="btn btn-primary btn-sm">Go somewhere</a> 
-            <p>    </p>  
-            <a href="#" class="btn btn-primary btn-sm">Go somewhere</a>
+            <h5 class="card-title">My opinion: {{movie.review}}</h5>
+            <h4 class="card-text"><small class="text-muted">Puntuación {{movie.rating}}</small></h4>
+            <div> <a href="{{url_for('edit', index=movie.id)}}" class="btn btn-primary btn-md">Update</a> <a href="#" class="btn btn-danger btn-md">Delete</a>  </div>  
           </div>
         </div>
       </div>
@@ -40,7 +38,7 @@
   </div>
 
 </div>
-<div class="container text-center add">
-<a href="#" class="button btn btn-dark">Add Movie</a>
+<div class="container text-center">
+  <a href="#" class="btn btn-dark">Delete Movie</a>
 </div>
 </body>

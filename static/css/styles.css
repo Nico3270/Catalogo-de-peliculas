@@ -37,6 +37,7 @@
 	 width: 100%;
 	 margin-left: 1rem;
 	 font-weight: 900;
+	 margin-top: 2rem;
 	 font-size: 1.618rem;
 	 text-transform: uppercase;
 	 letter-spacing: 0.1ch;
@@ -44,6 +45,7 @@
 	 padding-bottom: 0.5em;
 	 margin-bottom: 1rem;
 	 position: relative;
+	 color:#a12f48
 }
  .heading:after {
 	 display: block;
@@ -59,6 +61,7 @@
 	 margin-top: 0;
 	 margin-left: 1rem;
 	 margin-bottom: 3rem;
+	 color: #4266b9;
 }
  .card {
 	 color: inherit;

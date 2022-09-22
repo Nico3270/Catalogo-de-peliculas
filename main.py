@@ -12,6 +12,11 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///movies_catalog.db"
 db = SQLAlchemy(app)
 Bootstrap(app)
 
+class RateMovieForm(FlaskForm):
+    new_rating = StringField("Your Rating Out 10 e.g. 7.6", validators=[DataRequired()])
+    new_review = StringField("Your Review", validators=[DataRequired()])
+    Submit = SubmitField('Done')
+
 class Movie(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String(250), unique=True, nullable = False)
@@ -29,6 +34,18 @@ db.create_all()
 def home():
     all_movies = db.session.query(Movie).all()
     return render_template("index.html", movies = all_movies)
+
+@app.route("/edit/<int:index>", methods=["GET", "POST"])
+def edit(index):
+    movie_update = Movie.query.get(index)
+    form = RateMovieForm()
+    if form.validate_on_submit():
+        movie_to_update = Movie.query.get(index)
+        movie_to_update.rating = form.new_rating.data
+        movie_to_update.review = form.new_review.data
+        db.session.commit()
+        return redirect(url_for('home'))
+    return render_template ("edit.html", update = movie_update, form=form)
 
 
 if __name__ == '__main__':

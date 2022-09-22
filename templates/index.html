@@ -27,7 +27,7 @@
           <div class="card-body">
             <h5 class="card-title">{{movie.title }} ({{movie.year}})</h5>
             <p class="card-text">{{movie.description}}</p>
-            <h5 class="card-title">My opinion: {{movie.review}}</h5>
+            <h5 class="card-title"><b>My opinion:</b> {{movie.review}}</h5>
             <h4 class="card-text"><small class="text-muted">Puntuación {{movie.rating}}</small></h4>
             <div> <a href="{{url_for('edit', index=movie.id)}}" class="btn btn-primary btn-md">Update</a> <a href="{{url_for('delete', index=movie.id)}}" class="btn btn-danger btn-md">Delete</a>  </div>  
           </div>
@@ -39,6 +39,6 @@
 
 </div>
 <div class="container text-center">
-  <a href="#" class="btn btn-dark">Add Movie</a>
+  <a href="{{url_for('add')}}" class="btn btn-dark">Add Movie</a>
 </div>
 </body>

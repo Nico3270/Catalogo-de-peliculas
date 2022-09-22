@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for, request
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField, IntegerField, FloatField
 from wtforms.validators import DataRequired
 import requests
 
@@ -17,11 +17,21 @@ class RateMovieForm(FlaskForm):
     new_review = StringField("Your Review", validators=[DataRequired()])
     Submit = SubmitField('Done')
 
+class NewMovie(FlaskForm):
+    add_title = StringField("Movie title", validators=[DataRequired()])
+    add_year = IntegerField("Year Titlte", validators=[DataRequired()])
+    add_description = StringField("Movie description", validators=[DataRequired()])
+    add_rating = FloatField("Movie rating", validators=[DataRequired()])
+    add_ranking = IntegerField("Movie ranking", validators=[DataRequired()])
+    add_review = StringField("Movie Review", validators=[DataRequired()])
+    add_img_url = StringField("Link of the image", validators=[DataRequired()])
+    add_Submit = SubmitField('Done')
+
 class Movie(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String(250), unique=True, nullable = False)
     year = db.Column(db.Integer, nullable = False )
-    description = db.Column(db.String(250), nullable = False)
+    description = db.Column(db.String(2500), nullable = False)
     rating = db.Column(db.Float, nullable = False )
     ranking = db.Column(db.Float, nullable = False)
     review  = db.Column(db.String(2500), nullable = False)
@@ -47,12 +57,25 @@ def edit(index):
         return redirect(url_for('home'))
     return render_template ("edit.html", update = movie_update, form=form)
 
+@app.route('/add', methods=["GET", "POST"])
+def add():
+    form = NewMovie()
+    if form.validate_on_submit():
+        new_movie = Movie(title = form.add_title.data, year = form.add_year.data,
+        description = form.add_description.data, rating = form.add_rating.data,
+        ranking=form.add_ranking.data, review=form.add_review.data, img_url=form.add_img_url.data)
+        db.session.add(new_movie)
+        db.session.commit()
+        return redirect(url_for('home'))
+    return render_template('add.html', form=form)
+
 @app.route('/delete/<int:index>')
 def delete(index):
     movie_to_delete = Movie.query.get(index)
     db.session.delete(movie_to_delete)
     db.session.commit()
     return redirect(url_for('home'))
+
 
 
 if __name__ == '__main__':

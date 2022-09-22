@@ -47,6 +47,13 @@ def edit(index):
         return redirect(url_for('home'))
     return render_template ("edit.html", update = movie_update, form=form)
 
+@app.route('/delete/<int:index>')
+def delete(index):
+    movie_to_delete = Movie.query.get(index)
+    db.session.delete(movie_to_delete)
+    db.session.commit()
+    return redirect(url_for('home'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)
